@@ -1,0 +1,14 @@
+.IndexPage{
+    background-color: #6CD6F1;
+    height: 100%;
+    width: 100%;
+    position:fixed;
+    top:0px;
+    left:0px;
+} 
+.IndexPageUpperBox{
+    background-color: #C7EAEF;
+    height: 43%;
+    width: 70%;
+    border-radius: 0px 0px 16px 0px;
+}
