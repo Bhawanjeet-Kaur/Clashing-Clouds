@@ -1,39 +1,71 @@
-.IndexPage{
-    background-color: #6CD6F1;
-    height: 100%;
+#menuTab{
+    background-color: #8BA892;
+    height: 13%;
     width: 100%;
     position:fixed;
     top:0px;
     left:0px;
-} 
-.IndexPageUpperBox{
-    background-color: #C7EAEF;
-    position:fixed;
-    height: 43%;
-    width: 70%;
-    border-radius: 0px 0px 16px 0px;
 }
-.indexPagecloud{
+#homeTab{
     position:fixed;
-    bottom:0px;
-    right:0px;
+    width:124px;
+    height:30px;
+    top:47px;
+    left:873px;
 }
-.logInButton{
-    border: 3px solid #6CD6F1;
-    font-size:35px;
-    font-weight:bold;
-    font-family:'Courier New', Courier, monospace;
+.tabs{
+    text-align:center;
+}
+.tabs:hover{
+    background-color: #FF6857;
+}
+#locationTab{
     position:fixed;
-    top: 500px;
-    left: 250px;
+    width:124px;
+    height:30px;
+    top:47px;
+    left:1064px;
+}
+#SavedTabs{
+    position:fixed;
+    width:124px;
+    height:30px;
+    top:47px;
+    left:1255px;
+}
+#logInTab{
+    position:fixed;
+    width:124px;
+    height:30px;
+    top:47px;
+    left:1425px;
+}
+#backgroundBody{
+    background-color: #E3BB88;
+    position:fixed;
+    top:13%;
+    left:0px;
+    height: 87%;
+    width: 100%;
+}
+#mainDataTab{
+    background-color: #FF6857;
+    position:fixed;
+    opacity:50%;
+    top:213px;
+    left:25px;
+    height: 431px;
+    width: 1470px;
 }
 .logInButton:hover{
     border: 3px solid #C7EAEF;
     background-color: #C7EAEF;
     cursor:pointer;
+    border-radius: 10px;
 }
 .signUpButton{
     border: 3px solid #6CD6F1;
+    background-color: #6CD6F1;
     font-size:35px;
     font-weight:bold;
     font-family:'Courier New', Courier, monospace;
@@ -45,4 +77,17 @@
     border: 3px solid #C7EAEF;
     background-color: #C7EAEF;
     cursor:pointer;
+    border-radius: 10px;
+}
+.signupAndLogIn{
+    position: absolute;
+    top: 27%;
+    left: 39%;
+    background-color: #6CD6F1;
+    opacity: 70%;
+    height: 430px;
+    width: 410px;
+    border: 1px solid #00d0ff;
+    border-radius:20px;
+    z-index: 20;
 }

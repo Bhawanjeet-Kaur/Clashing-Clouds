@@ -4,23 +4,29 @@
     <title> Web Weather</title>
     <link rel="stylesheet" href="indexStyle.css">
     <!-- Link for the javascript file-->
+     <link rel="script" href="indexScript.js">
 </head>
 <body >
-    <div class="IndexPage">
-        <!--UPPER BOX-->
-        <div class="IndexPageUpperBox">
-            <p style="margin:120px;padding:0;text-align: center;font-size: 50px ;font-weight:bold;">Clashing Clouds</p>
-            
+    <div id="menuTab">
+        <div id="homeTab" class="tabs">Home</div>
+        <div id="locationTab" class="tabs">Location</div>
+        <div id="SavedTabs" class="tabs">Saved Tabs</div>
+        <div id="logInTab" class="tabs">Log in</div>
+    </div>
+    <div id="backgroundBody">
+        <div id="mainDataTab">
+            <div id="AQI">
+                AQI
+            </div>
+            <div id="UVI">
+                UVI
+            </div>
         </div>
-        <!--CLOUD-->
-        <div class="indexPagecloud">
-            <img src="Clouds.png">
+        <div id="otherTab1">
+
         </div>
-        <div class="logInButton">
-            &nbsp LOG IN &nbsp
-        </div>
-        <div class="signUpButton">
-            &nbsp SIGN UP &nbsp
+        <div id="otherTab2">
+
         </div>
     </div>
 </body>
