@@ -2,31 +2,69 @@
 <html>
 <head>
     <title> Web Weather</title>
-    <link rel="stylesheet" href="indexStyle.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/indexStyle.css">
     <!-- Link for the javascript file-->
      <link rel="script" href="indexScript.js">
 </head>
 <body >
-    <div id="menuTab">
-        <div id="homeTab" class="tabs">Home</div>
-        <div id="locationTab" class="tabs">Location</div>
-        <div id="SavedTabs" class="tabs">Saved Tabs</div>
-        <div id="logInTab" class="tabs">Log in</div>
-    </div>
-    <div id="backgroundBody">
-        <div id="mainDataTab">
-            <div id="AQI">
-                AQI
-            </div>
-            <div id="UVI">
-                UVI
+    <div class="container">
+        <!-- Navigation Bar -->
+        <div class="nav-bar">
+            <div class="nav-buttons">
+                <button class="nav-button">Home</button>
+                <button class="nav-button">Location</button>
+                <button class="nav-button">Tabs</button>
+                <button class="nav-button">Login</button>
             </div>
         </div>
-        <div id="otherTab1">
 
+        <!-- Days Navigation -->
+        <div class="days-nav">
+            <button class="day-button">Today</button>
+            <button class="day-button">Friday</button>
+            <button class="day-button">Saturday</button>
+            <button class="day-button">Sunday</button>
+            <button class="day-button">Monday</button>
+            <button class="day-button">»</button>
         </div>
-        <div id="otherTab2">
 
+        <!-- Weather Content -->
+        <div class="weather-content">
+            <!-- Main Temperature Card -->
+            <div class="main-temp">
+                <div class="current-temp">20 C</div>
+                <div class="temp-details">
+                    High: 30 C<br>
+                    Low: 19 C
+                </div>
+                <div class="temp-details">Feels like: 19 C</div>
+                <div class="temp-details">A little note for everyday</div>
+            </div>
+
+            <!-- Indices -->
+            <div class="indices">
+                <!-- AQI Card -->
+                <div class="index-card">
+                    <div class="index-title">AQI</div>
+                    <div class="index-value">5</div>
+                    <div class="index-note">A little note here about the air</div>
+                </div>
+
+                <!-- UVI Card -->
+                <div class="index-card">
+                    <div class="index-title">UVI</div>
+                    <div class="index-value">1</div>
+                    <div class="index-note">A little note here about the UV</div>
+                </div>
+            </div>
+
+            <!-- Bottom Cards -->
+            <div class="bottom-cards">
+                <div class="bottom-card"></div>
+                <div class="bottom-card"></div>
+            </div>
         </div>
     </div>
 </body>
