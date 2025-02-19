@@ -1,5 +1,5 @@
 // Replace with your OpenWeatherMap API key
-const API_KEY = '7815610bef246b80a750709bf13a81b1';
+const API_KEY = '818bf3305a73d00e2641b1e69bb4179f';
         
 async function getCurrentLocation() {
     if (navigator.geolocation) {
