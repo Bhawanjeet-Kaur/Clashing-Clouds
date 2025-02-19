@@ -14,7 +14,7 @@
         <div class="nav-bar">
             <div class="nav-buttons">
                 <button class="nav-button">Home</button>
-                <button class="nav-button">Location</button>
+                <button class="nav-button" onclick="getCurrentLocation()">Location</button>
                 <button class="nav-button">Tabs</button>
                 <button class="nav-button">Login</button>
             </div>
@@ -34,36 +34,36 @@
         <div class="weather-content">
             <!-- Main Temperature Card -->
             <div class="main-temp">
-                <div class="current-temp">20 C</div>
-                <div class="temp-details">
-                    High: 30 C<br>
-                    Low: 19 C
+                <div class="current-temp" id="current-temp">-- °C</div>
+                <div class="temp-details" id="temp-range">
+                    High: -- °C<br>
+                    Low: -- °C
                 </div>
-                <div class="temp-details">Feels like: 19 C</div>
-                <div class="temp-details">A little note for everyday</div>
+                <div class="temp-details" id="feels-like">Feels like: -- °C</div>
+                <div class="temp-details" id="weather-desc">A little note for everyday</div>
             </div>
 
             <!-- Indices -->
             <div class="indices">
                 <!-- AQI Card -->
                 <div class="index-card">
-                    <div class="index-title">AQI</div>
-                    <div class="index-value">5</div>
-                    <div class="index-note">A little note here about the air</div>
+                    <div class="index-title" >AQI</div>
+                    <div class="index-value" id="aqi-value">--</div>
+                    <div class="index-note" id="aqi-desc">A little note here about the air</div>
                 </div>
 
                 <!-- UVI Card -->
                 <div class="index-card">
                     <div class="index-title">UVI</div>
-                    <div class="index-value">1</div>
-                    <div class="index-note">A little note here about the UV</div>
+                    <div class="index-value" id="uvi-value">1</div>
+                    <div class="index-note" id="uvi-desc">A little note here about the UV</div>
                 </div>
             </div>
 
             <!-- Bottom Cards -->
             <div class="bottom-cards">
-                <div class="bottom-card"></div>
-                <div class="bottom-card"></div>
+                <div class="bottom-card" id="humidity-wind"></div>
+                <div class="bottom-card" id="forecast"></div>
             </div>
         </div>
     </div>
