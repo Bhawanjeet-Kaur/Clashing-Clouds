@@ -21,7 +21,7 @@ html, body {
 
 /* Navigation Bar */
 .nav-bar {
-    background-color: #95c5b0;
+    background-color: #9a95c5;
     padding: 15px;
 }
 
@@ -32,7 +32,7 @@ html, body {
 }
 
 .nav-button {
-    background-color: #ff9999;
+    background-color: #8780c6;
     border: none;
     padding: 8px 20px;
     border-radius: 20px;
@@ -41,7 +41,7 @@ html, body {
 
 /* Days Navigation */
 .days-nav {
-    background-color: #ffe4b5;
+    background-color: #ffffff;
     display: flex;
     border-bottom: 1px solid #ddd;
 }
@@ -56,12 +56,12 @@ html, body {
 }
 
 .day-button:hover {
-    background-color: #ffd700;
+    background-color: #dad4f5;
 }
 
 /* Weather Content */
 .weather-content {
-    background-color: #ffe4b5;
+    background-color: #e0eaf6;
     padding: 20px;
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -71,7 +71,7 @@ html, body {
 }
 
 .main-temp {
-    background-color: #ffb6b6;
+    background-color: #c9c7fd;
     padding: 25px;
     border-radius: 8px;
     height: fit-content;
@@ -124,7 +124,7 @@ html, body {
 }
 
 .bottom-card {
-    background-color: #deb0b0;
+    background-color: #c9c7fd;
     height: 200px;
     border-radius: 8px;
 }
