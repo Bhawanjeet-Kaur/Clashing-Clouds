@@ -8,62 +8,109 @@
     <!-- Link for the javascript file-->
      <link rel="script" href="indexScript.js">
 </head>
-<body >
+<body>
     <div class="container">
-        <!-- Navigation Bar -->
-        <div class="nav-bar">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">Clashing Cloud</div>
             <div class="nav-buttons">
-                <button class="nav-button">Home</button>
-                <button class="nav-button" onclick="getCurrentLocation()">Location</button>
-                <button class="nav-button">Tabs</button>
-                <button class="nav-button">Login</button>
+                <button class="nav-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+                    </svg>
+                    Home
+                </button>
+                <button class="nav-button" id="location-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                    </svg>
+                    Location
+                </button>
+                <button class="nav-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M3.5 2A1.5 1.5 0 0 1 5 3.5V5H3.5a1.5 1.5 0 1 1 0-3zM6 5V3.5A2.5 2.5 0 1 0 3.5 6H5v4H3.5A2.5 2.5 0 1 0 6 12.5V11h4v1.5a2.5 2.5 0 1 0 2.5-2.5H11V6h1.5A2.5 2.5 0 1 0 10 3.5V5H6z"/>
+                    </svg>
+                    Tabs
+                </button>
+                <button class="nav-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                    </svg>
+                    Login
+                </button>
             </div>
         </div>
-
+        
         <!-- Days Navigation -->
         <div class="days-nav">
-            <button class="day-button">Today</button>
+            <button class="day-button active">Today</button>
             <button class="day-button">Friday</button>
             <button class="day-button">Saturday</button>
             <button class="day-button">Sunday</button>
             <button class="day-button">Monday</button>
-            <button class="day-button">»</button>
+            <button class="day-button">›</button>
         </div>
-
+        
         <!-- Weather Content -->
-        <div class="weather-content">
-            <!-- Main Temperature Card -->
-            <div class="main-temp">
-                <div class="current-temp" id="current-temp">-- °C</div>
-                <div class="temp-details" id="temp-range">
-                    High: -- °C<br>
-                    Low: -- °C
+        <div class="weather-content" id="weather-container">
+            <div id="error-message"></div>
+            
+            <!-- Main Weather Card -->
+            <div class="main-weather">
+                <div class="temperature" id="current-temp">22 °C</div>
+                <div class="weather-details">
+                    <p id="location">Location</p>
+                    <p>High: <span id="temp-high">25</span> °C</p>
+                    <p>Low: <span id="temp-low">18</span> °C</p>
+                    <p>Feels like: <span id="feels-like">23</span> °C</p>
                 </div>
-                <div class="temp-details" id="feels-like">Feels like: -- °C</div>
-                <div class="temp-details" id="weather-desc">A little note for everyday</div>
+                <p class="weather-description" id="weather-desc">Mostly Sunny</p>
+                <img src="/api/placeholder/80/80" alt="Weather icon" class="weather-icon" id="weather-icon">
             </div>
-
-            <!-- Indices -->
+            
+            <!-- Indices Section -->
             <div class="indices">
                 <!-- AQI Card -->
-                <div class="index-card">
-                    <div class="index-title" >AQI</div>
-                    <div class="index-value" id="aqi-value">--</div>
-                    <div class="index-note" id="aqi-desc">A little note here about the air</div>
+                <div class="index-card" id="aqi-container">
+                    <div class="index-title">AQI</div>
+                    <div class="index-value" id="aqi-value">32</div>
+                    <div class="index-description" id="aqi-desc">Good air quality today. Perfect for outdoor activities.</div>
                 </div>
-
+                
                 <!-- UVI Card -->
-                <div class="index-card">
+                <div class="index-card" id="uvi-container">
                     <div class="index-title">UVI</div>
-                    <div class="index-value" id="uvi-value">1</div>
-                    <div class="index-note" id="uvi-desc">A little note here about the UV</div>
+                    <div class="index-value" id="uvi-value">3</div>
+                    <div class="index-description" id="uvi-desc">Moderate UV levels. Wear sunscreen if staying outside for extended periods.</div>
                 </div>
             </div>
-
-            <!-- Bottom Cards -->
-            <div class="bottom-cards">
-                <div class="bottom-card" id="humidity-wind"></div>
-                <div class="bottom-card" id="forecast"></div>
+            
+            <!-- Bottom Row Cards -->
+            <div class="bottom-row">
+                <!-- Humidity Card -->
+                <div class="info-card">
+                    <h3>Humidity</h3>
+                    <p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#7b68ee" class="info-icon" viewBox="0 0 16 16">
+                            <path d="M8 16a6 6 0 0 0 6-6c0-1.655-1.122-2.904-2.432-4.362C10.254 4.176 8.75 2.503 8 0c0 0-6 5.686-6 10a6 6 0 0 0 6 6ZM6.646 4.646l.708.708c-.29.29-.58.58-.708.708l-.708-.708c.29-.29.58-.58.708-.708Z"/>
+                        </svg>
+                        65%
+                    </p>
+                    <span>The dew point is 14° right now.</span>
+                </div>
+                
+                <!-- Wind Card -->
+                <div class="info-card">
+                    <h3>Wind</h3>
+                    <p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#7b68ee" class="info-icon" viewBox="0 0 16 16">
+                            <path d="M12.5 2A2.5 2.5 0 0 0 10 4.5a.5.5 0 0 1-1 0A3.5 3.5 0 1 1 12.5 8H.5a.5.5 0 0 1 0-1h12a2.5 2.5 0 0 0 0-5zm-7 1a1 1 0 0 0-1 1 .5.5 0 0 1-1 0 2 2 0 1 1 2 2h-5a.5.5 0 0 1 0-1h5a1 1 0 0 0 0-2zM0 9.5A.5.5 0 0 1 .5 9h10.042a3 3 0 1 1-3 3 .5.5 0 0 1 1 0 2 2 0 1 0 2-2H.5a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                        12 km/h
+                    </p>
+                    <span>Light breeze from the northwest.</span>
+                </div>
             </div>
         </div>
     </div>

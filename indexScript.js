@@ -46,8 +46,7 @@ async function getWeatherData(lat, lon) {
         const airData = await airResponse.json();
         console.log('Air pollution data:', airData);
 
-        // Get UV index and forecast using OneCall API 3.0
-        // Note: If there's an issue with OneCall 3.0, we'll handle it gracefully
+        // Get UV index and forecast using OneCall API
         try {
             const oneCallResponse = await fetch(
                 `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=minutely,hourly&appid=${API_KEY}`
@@ -100,28 +99,21 @@ function updateUI(weather, air, oneCall) {
     
     // Update weather icon
     const iconCode = weather.weather[0].icon;
-    document.getElementById('weather-icon').src = 
-        `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+    document.getElementById('weather-icon').src = iconUrl;
     document.getElementById('weather-icon').alt = weather.weather[0].description;
     
     // Update temperature range
-    document.getElementById('temp-range').innerHTML = 
-        `High: ${Math.round(weather.main.temp_max)}°C<br>
-         Low: ${Math.round(weather.main.temp_min)}°C`;
+    document.getElementById('temp-high').textContent = Math.round(weather.main.temp_max);
+    document.getElementById('temp-low').textContent = Math.round(weather.main.temp_min);
     
     // Update feels like
-    document.getElementById('feels-like').textContent = 
-        `Feels like: ${Math.round(weather.main.feels_like)}°C`;
+    document.getElementById('feels-like').textContent = Math.round(weather.main.feels_like);
     
     // Update weather description
     document.getElementById('weather-desc').textContent = 
         weather.weather[0].description.charAt(0).toUpperCase() + 
         weather.weather[0].description.slice(1);
-
-    // Update timestamp
-    const timestamp = new Date(weather.dt * 1000);
-    document.getElementById('timestamp').textContent = 
-        `Last updated: ${timestamp.toLocaleTimeString()}`;
 
     // Update AQI if available
     if (air && air.list && air.list.length > 0) {
@@ -142,153 +134,63 @@ function updateUI(weather, air, oneCall) {
     } else {
         document.getElementById('uvi-container').style.display = 'none';
     }
-
-    // Update bottom cards
-    document.getElementById('humidity-wind').innerHTML = `
-        <h3>Current Conditions</h3>
-        <p><i class="fas fa-tint"></i> Humidity: ${weather.main.humidity}%</p>
-        <p><i class="fas fa-wind"></i> Wind: ${weather.wind.speed} m/s</p>
-        <p><i class="fas fa-compress-alt"></i> Pressure: ${weather.main.pressure} hPa</p>
-        <p><i class="fas fa-eye"></i> Visibility: ${weather.visibility / 1000} km</p>
-    `;
-
-    // Update forecast if available
-    if (oneCall && oneCall.daily && oneCall.daily.length > 1) {
-        const tomorrow = oneCall.daily[1];
-        document.getElementById('forecast').innerHTML = `
-            <h3>Tomorrow's Forecast</h3>
-            <p><i class="fas fa-temperature-high"></i> High: ${Math.round(tomorrow.temp.max)}°C</p>
-            <p><i class="fas fa-temperature-low"></i> Low: ${Math.round(tomorrow.temp.min)}°C</p>
-            <p><i class="fas fa-cloud"></i> ${tomorrow.weather[0].description}</p>
-            <p><i class="fas fa-umbrella"></i> Chance of Rain: ${Math.round((tomorrow.pop || 0) * 100)}%</p>
-        `;
-    } else {
-        document.getElementById('forecast').innerHTML = `<h3>Forecast Unavailable</h3>`;
-    }
-
-    // Update 5-day forecast if element exists
-    if (document.getElementById('five-day-forecast') && oneCall && oneCall.daily) {
-        const fiveDayContainer = document.getElementById('five-day-forecast');
-        fiveDayContainer.innerHTML = '<h3>5-Day Forecast</h3><div class="forecast-days"></div>';
-        const forecastDays = fiveDayContainer.querySelector('.forecast-days');
-        
-        // Start from index 1 to skip current day
-        for (let i = 1; i < Math.min(6, oneCall.daily.length); i++) {
-            const day = oneCall.daily[i];
-            const date = new Date(day.dt * 1000);
-            const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
-            
-            const dayEl = document.createElement('div');
-            dayEl.className = 'forecast-day';
-            dayEl.innerHTML = `
-                <div class="day-name">${dayName}</div>
-                <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="${day.weather[0].description}">
-                <div class="day-temp">${Math.round(day.temp.max)}° / ${Math.round(day.temp.min)}°</div>
-                <div class="day-desc">${day.weather[0].main}</div>
-            `;
-            forecastDays.appendChild(dayEl);
-        }
-    }
 }
 
 function getAQIDescription(aqi) {
     const descriptions = {
-        1: "Good - Ideal air quality",
-        2: "Fair - Moderate air quality",
-        3: "Moderate - Some pollutants",
-        4: "Poor - Unhealthy for sensitive groups",
-        5: "Very Poor - Unhealthy air quality"
+        1: "Good - Ideal air quality for outdoor activities.",
+        2: "Fair - Moderate air quality, fine for most people.",
+        3: "Moderate - Some pollutants, sensitive individuals may experience effects.",
+        4: "Poor - Unhealthy for sensitive groups, limit prolonged outdoor activity.",
+        5: "Very Poor - Unhealthy air quality, minimize outdoor activities."
     };
     return descriptions[aqi] || "Unknown air quality";
 }
 
 function getUVIDescription(uvi) {
-    if (uvi <= 2) return "Low exposure";
-    if (uvi <= 5) return "Moderate exposure";
-    if (uvi <= 7) return "High exposure";
-    if (uvi <= 10) return "Very high exposure";
-    return "Extreme exposure";
+    if (uvi <= 2) return "Low exposure risk. No protection needed for most people.";
+    if (uvi <= 5) return "Moderate UV levels. Wear sunscreen if staying outside for extended periods.";
+    if (uvi <= 7) return "High exposure. Wear sunscreen, protective clothing, and seek shade during midday hours.";
+    if (uvi <= 10) return "Very high exposure. Take extra precautions and minimize sun exposure between 10am-4pm.";
+    return "Extreme exposure. Avoid being outside during midday hours and take all precautions.";
 }
 
-// Search by city name
-document.getElementById('search-form')?.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const city = document.getElementById('city-input').value.trim();
-    if (city) {
-        searchByCity(city);
-    }
-});
-
-async function searchByCity(city) {
+function searchByCity(city) {
     try {
-        const geoResponse = await fetch(
+        document.getElementById('error-message').style.display = 'none';
+        fetch(
             `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)}&limit=1&appid=${API_KEY}`
-        );
-        
-        if (!geoResponse.ok) {
-            throw new Error(`Geocoding API error: ${geoResponse.status}`);
-        }
-        
-        const geoData = await geoResponse.json();
-        
-        if (geoData.length === 0) {
-            throw new Error(`City "${city}" not found`);
-        }
-        
-        const { lat, lon } = geoData[0];
-        getWeatherData(lat, lon);
+        )
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Geocoding API error: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(geoData => {
+            if (geoData.length === 0) {
+                throw new Error(`City "${city}" not found`);
+            }
+            
+            const { lat, lon } = geoData[0];
+            getWeatherData(lat, lon);
+        })
+        .catch(error => {
+            console.error('Error searching by city:', error);
+            document.getElementById('error-message').textContent = `Error: ${error.message}`;
+            document.getElementById('error-message').style.display = 'block';
+        });
     } catch (error) {
-        console.error('Error searching by city:', error);
-        document.getElementById('error-message').textContent = 
-            `Error: ${error.message}`;
+        console.error('Error in searchByCity:', error);
+        document.getElementById('error-message').textContent = `Error: ${error.message}`;
         document.getElementById('error-message').style.display = 'block';
     }
 }
 
-// Initialize units toggle if it exists
-document.getElementById('units-toggle')?.addEventListener('click', function() {
-    const currentTemp = document.getElementById('current-temp').textContent;
-    const isCelsius = currentTemp.includes('°C');
-    
-    // Toggle between Celsius and Fahrenheit
-    if (isCelsius) {
-        convertToFahrenheit();
-        this.textContent = 'Switch to °C';
-    } else {
-        convertToCelsius();
-        this.textContent = 'Switch to °F';
-    }
-});
-
-function convertToFahrenheit() {
-    // This is a simplified conversion function
-    // In a real app, you should re-fetch the data or store both units
-    document.querySelectorAll('[data-temp]').forEach(el => {
-        const celsiusTemp = parseFloat(el.getAttribute('data-temp'));
-        const fahrenheitTemp = Math.round((celsiusTemp * 9/5) + 32);
-        el.textContent = `${fahrenheitTemp}°F`;
-    });
-}
-
-function convertToCelsius() {
-    document.querySelectorAll('[data-temp]').forEach(el => {
-        const celsiusTemp = parseFloat(el.getAttribute('data-temp'));
-        el.textContent = `${Math.round(celsiusTemp)}°C`;
-    });
-}
+// Event listener for location button
+document.getElementById('location-button').addEventListener('click', getCurrentLocation);
 
 // Load weather data on page load
 document.addEventListener('DOMContentLoaded', () => {
-    // Create error message element if it doesn't exist
-    if (!document.getElementById('error-message')) {
-        const errorEl = document.createElement('div');
-        errorEl.id = 'error-message';
-        errorEl.style.display = 'none';
-        errorEl.style.color = 'red';
-        errorEl.style.marginTop = '10px';
-        errorEl.style.textAlign = 'center';
-        document.getElementById('weather-container')?.prepend(errorEl);
-    }
-    
     getCurrentLocation();
 });
